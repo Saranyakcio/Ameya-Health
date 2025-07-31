@@ -1,12 +1,10 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import React, {useEffect, useCallback, useState, useRef} from 'react';
 import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { StatusBar, StyleSheet, useColorScheme, View, Platform, Alert } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import BottomTabs from './src/navigation/BottomTabs';
+import GPSWatcher from './src/components/GPSWatcher';
+import { AppProvider } from './src/context/AppContext';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -14,7 +12,13 @@ function App() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
+      {/* <NewAppScreen templateFileName="App.tsx" /> */}
+       <AppProvider>
+        <GPSWatcher /> 
+    <NavigationContainer>
+      <BottomTabs />
+    </NavigationContainer>
+   </AppProvider>
     </View>
   );
 }
