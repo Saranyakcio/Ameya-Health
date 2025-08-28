@@ -12,6 +12,7 @@ const GPSWatcher = () => {
   const watchId = useRef(null);
 
   const requestLocationPermission = async () => {
+    console.log('PERMISSIONS CODE START');
     if (Platform.OS === 'android') {
       const fineLocation = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
       if (fineLocation !== RESULTS.GRANTED) return false;
@@ -30,7 +31,7 @@ const GPSWatcher = () => {
     return true;
   };
   useEffect( () => {
-    if (!orderId) return;
+    //if (!orderId) return;
     (async () => {
       const granted = await requestLocationPermission();
       if (!granted) {

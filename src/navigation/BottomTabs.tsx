@@ -29,7 +29,7 @@ const TabBarBackground = ({ style }) => {
 `;
     return (
         <Svg width={width} height={height + 20} style={style}>
-            <Path fill="#DCEEF5" d={d} />
+            <Path fill="#9DD1E7" d={d} />
         </Svg>
     );
 };

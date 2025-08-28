@@ -1,12 +1,14 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform, Dimensions} from 'react-native';
+const { width } = Dimensions.get('window');
+const CARD_WIDTH = width * 0.93;
 export const styles = StyleSheet.create({
     container: {
     flex: 1,
-    backgroundColor: '#EBF5F9',
+    backgroundColor: '#E6F4FB',
   },
   header: {
-    backgroundColor: '#1f66c1',
-    padding: 20,
+    //backgroundColor: '#EDFAFF',
+    padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -23,35 +25,42 @@ export const styles = StyleSheet.create({
   zIndex: -1,
 },
 askHabbieCard: {
-  marginHorizontal: 16,
-  borderRadius: 12,
+  marginLeft: 11,
+  borderRadius: 16,
+  marginTop: 5,
   overflow: 'hidden',
-  position: 'relative',
 },
   userRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 0.95,
   },
   greeting: {
-    color: '#fff',
+    color: '#000',
     fontSize: 14,
     fontWeight: 500,
   },
   userName: {
-    color: '#fff',
+    color: '#000',
     fontSize: 18,
     fontWeight: 500,
   },
+  newForYou: {
+    color: '#333333',
+    fontSize: 16,
+    fontWeight: 600,
+    width: 60
+  },
   avatar: {
-    width: 60,
-    height: 60,
+    width: 72,
+    height: 72,
     borderRadius: 24,
     marginRight: 12,
   },
 
   askImage: {
     width: '100%',
-    height: 120,
+    height: 145,
   },
   askTextOverlay: {
     position: 'absolute',
@@ -68,14 +77,16 @@ askHabbieCard: {
     fontSize: 12.6,
     fontWeight: 400,
     width: '60%',
-    marginTop: 4,
+    marginTop: 6,
   },
   alertCard: {
-  marginHorizontal: 16,
-  marginTop: 20,
+  marginHorizontal: 10,
+  //marginTop: 20,
   backgroundColor: '#fff',
   borderRadius: 12,
-  padding: 16,
+  padding: 10,
+  width: '95%',
+  marginTop: 6,
   //height: 140
   //elevation: 3,
 },
@@ -115,7 +126,27 @@ alertHeader: {
   alignItems: 'center',
   justifyContent: 'space-between',
 },
-
+ dotsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 8,
+    gap: 2,
+  },
+  dot: {
+    marginHorizontal: 4,
+  },
+  dotActive: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#333',
+  },
+  dotInactive: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+  },
 viewAll: {
   fontSize: 14,
   fontWeight: '500',
@@ -300,7 +331,23 @@ bulletText: {
   fontSize: 14,
   lineHeight: 20,
 },
-  assessmentRow: {
+cardRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginHorizontal: 16,
+    marginTop : 10,
+},
+imageView: {
+  // width: 190,
+  // height: 240
+    maxWidth: 175,
+    height: 220,
+    borderRadius: 12,
+    overflow: 'hidden',
+    paddingBottom: 10,
+    position: 'relative',
+},
+assessmentRow: {
     flexDirection: 'row',
     gap: 12,
     justifyContent: 'center',
@@ -335,10 +382,34 @@ leftIcon: {
 //     width: '100%',
 //     height: 100,
 //   },
+belowText : {
+ position: 'absolute',
+  bottom: 12,
+  left: 12,
+  //backgroundColor: '#3D434B',
+  color: '#000',
+  paddingHorizontal: 6,
+  paddingVertical: 2,
+  borderRadius: 8,
+  fontSize: 16,
+  fontWeight: '600',
+},
+durationTagBelow: {
+  position: 'absolute',
+  bottom: 20,
+  left: 12,
+  //backgroundColor: '#3D434B',
+  color: '#000',
+  paddingHorizontal: 6,
+  paddingVertical: 4,
+  borderRadius: 8,
+  fontSize: 50,
+  fontWeight: '600',
+},
   durationTag: {
   position: 'absolute',
   top: 12,
-  right: 12,
+  left: 12,
   //backgroundColor: '#3D434B',
   color: '#000',
   paddingHorizontal: 6,
@@ -374,6 +445,38 @@ leftIcon: {
      color: '#fff',
      fontSize: 16,
      fontWeight: 700,
+  },
+  rectangleView : {
+        width: CARD_WIDTH,
+        overflow: 'hidden',
+        alignSelf: 'center',
+        marginVertical: 12,
+        borderRadius: 16,
+  },
+  cotes: {
+    width: 392, 
+    height: 174,
+  },
+  quoteContainer: {
+    padding: 50,
+    alignItems: 'center',
+  },
+  quoteText: {
+    fontSize: 16,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    fontFamily: Platform.select({
+      ios: 'Georgia',
+      android: 'serif',
+    }),
+    color: '#000',
+    lineHeight: 22,
+  },
+  authorText: {
+    marginTop: 8,
+    fontSize: 12,
+    color: '#555',
+    fontFamily: 'Regular',
   },
   schedulingCard: {
     margin: 16,
@@ -419,4 +522,106 @@ leftIcon: {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  });
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  panel: {
+    position: 'absolute',
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 14,
+    elevation: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 8 },
+    shadowRadius: 16,
+    height: '96%',
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 20
+  },
+  title: {
+    fontWeight: '400',
+    fontSize: 20,
+    fontFamily: 'Regular',
+  },
+  closeButton: {
+    position: 'absolute',
+    right: 10,
+  },
+  close: {
+    width: 20,
+    height: 20,
+  },
+  tabRow: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'flex-start',  // Keeps tabs aligned left
+  marginBottom: 12,
+  gap: 24,  // Space between Unread and Read
+},
+
+tab: {
+  fontSize: 16,
+  fontWeight: '600',
+  paddingBottom: 4,
+  color: '#666',
+  fontFamily: 'semibold',
+  borderBottomWidth: 2,
+  borderBottomColor: 'transparent', // Default no underline
+},
+
+activeTab: {
+  color: '#000',
+  borderBottomColor: '#3F3FA6', // Show underline when active
+},
+  clearAll: {
+    color: '#106AAD',
+    fontSize: 16,
+    fontWeight: '500',
+    fontFamily: 'medium',
+    alignSelf: 'flex-end',
+    textDecorationLine: 'underline',
+    textDecorationColor: '#106AAD',
+  },
+  viewVideo: {
+    marginTop: 8,
+    color: '#106AAD',
+    fontSize: 16,
+    fontWeight: '500',
+    fontFamily: 'medium',
+    textDecorationLine: 'underline',
+    textDecorationColor: '#106AAD',
+  },
+  sectionHeader: {
+    marginTop: 4,
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#000',
+    fontFamily: 'semibold',
+    //marginBottom: 6,
+  },
+  notificationItem: {
+    marginTop: 4,
+    paddingVertical: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#ccc',
+  },
+  notificationTitle: {
+    fontWeight: '600',
+    fontSize: 16,
+    fontFamily: 'semibold',
+  },
+  notificationTime: {
+    fontSize: 12,
+    color: '#6D6D6D',
+  },
+  notificationSubtitle: {
+    fontSize: 16,
+    marginTop: 4,
+    color: '#444',
+  },
+});
