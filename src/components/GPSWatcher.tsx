@@ -30,7 +30,7 @@ const GPSWatcher = () => {
     }
     return true;
   };
-  useEffect( () => {
+  useEffect(() => {
     //if (!orderId) return;
     (async () => {
       const granted = await requestLocationPermission();
@@ -44,8 +44,25 @@ const GPSWatcher = () => {
           const { latitude, longitude, accuracy } = position.coords;
           console.log('GPS Position:', position.coords);
           setLocation({ latitude, longitude, accuracy });
+           // Save log
+          const logEntry = {
+            latitude,
+            longitude,
+            accuracy,
+            timestamp: new Date().toISOString(),
+          };
+
+          try {
+            const existingLogs = await AsyncStorage.getItem('gpsLogs');
+            const logs = existingLogs ? JSON.parse(existingLogs) : [];
+            logs.push(logEntry);
+            await AsyncStorage.setItem('gpsLogs', JSON.stringify(logs));
+          } catch (err) {
+            console.log("Error saving logs", err);
+          }
+
           const response = await findLocation(latitude, longitude, orderId);
-          console.log("RESPONSE LOCATION",response)
+          console.log("RESPONSE LOCATION", response)
         },
         error => {
           console.log('GPS Error:', error.message);
@@ -67,25 +84,25 @@ const GPSWatcher = () => {
       }
     };
   }, [orderId]);
-useEffect(() => {
-  BackgroundFetch.configure(
-    {
-      minimumFetchInterval: 15,
-      stopOnTerminate: false,
-      startOnBoot: true,     
-      enableHeadless: true,
-      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY,
-    },
-    async taskId => {
-      console.log('[BackgroundFetch] Event received: ', taskId);
-      //await syncService.performSync();
-      BackgroundFetch.finish(taskId);
-    },
-    error => {
-      console.log('[BackgroundFetch] Failed to start:', error);
-    },
-  );
-}, []);
+  useEffect(() => {
+    BackgroundFetch.configure(
+      {
+        minimumFetchInterval: 15,
+        stopOnTerminate: false,
+        startOnBoot: true,
+        enableHeadless: true,
+        requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY,
+      },
+      async taskId => {
+        console.log('[BackgroundFetch] Event received: ', taskId);
+        //await syncService.performSync();
+        BackgroundFetch.finish(taskId);
+      },
+      error => {
+        console.log('[BackgroundFetch] Failed to start:', error);
+      },
+    );
+  }, []);
 
   return null;
 };
