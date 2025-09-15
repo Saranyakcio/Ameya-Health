@@ -157,12 +157,23 @@ const ProfileScreen = () => {
 
       <Modal
   visible={showModal}
-  animationType="slide"
-  onRequestClose={() => setShowModal(false)} // Android back button
+  transparent={true}  
+  animationType="fade"
+  onRequestClose={() => setShowModal(false)}
 >
-  <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+    
+    {/* Popup Box */}
+    <View style={{
+      width: '85%',
+      maxHeight: '70%',
+      backgroundColor: '#fff',
+      borderRadius: 12,
+      padding: 15,
+      elevation: 5
+    }}>
     {/* Header */}
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15, backgroundColor: '#1f66c1' }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 15, backgroundColor: '#1f66c1',borderRadius: 10 }}>
       <Text style={{ color: 'white', fontSize: 18, fontWeight: '600' }}>GPS Logs</Text>
       <TouchableOpacity onPress={() => setShowModal(false)}>
         <Text style={{ color: 'white', fontSize: 16 }}>Close</Text>
@@ -192,9 +203,10 @@ const ProfileScreen = () => {
         );
       }}
     />
-  </SafeAreaView>
+   </View>
+  </View>
 </Modal>
-        </SafeAreaView>
+ </SafeAreaView>
     );
     // return (
     //     <SafeAreaView style={{ flex: 1, backgroundColor: '#1f66c1', }}>
