@@ -7,6 +7,7 @@ import Geolocation, {
 import { PermissionsAndroid, Platform } from 'react-native';
 import { use } from 'react';
 import { useAppContext } from '../../context/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
  
 let watchId: number | null = null;
@@ -16,6 +17,24 @@ interface TaskData {
 }
 
 // Background task function
+
+const addLogs = async (lat,long,accuracy) => {
+   const logEntry = {
+            lat,
+            long,
+            accuracy,
+            timestamp: new Date().toISOString(),
+          };
+
+          try {
+            const existingLogs = await AsyncStorage.getItem('gpsLogs');
+            const logs = existingLogs ? JSON.parse(existingLogs) : [];
+            logs.push(logEntry);
+            await AsyncStorage.setItem('gpsLogs', JSON.stringify(logs));
+          } catch (err) {
+            console.log("Error saving logs", err);
+          }
+}
 const task = async (taskData?: TaskData): Promise<void> => {
 const { setLocation, orderId, location } = useAppContext();
   // Keep the task alive indefinitely
@@ -25,7 +44,10 @@ const { setLocation, orderId, location } = useAppContext();
         console.log('Background location:', position);
         setLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude, accuracy: position.coords.accuracy });
         // Send location to server or store locally here
-        console.log('Background location:', position );
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+         const accuracy = position.coords.accuracy;
+        addLogs(lat,long,accuracy);
       },
       (error: GeoError) => {
         console.log(

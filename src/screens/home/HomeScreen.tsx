@@ -74,7 +74,9 @@ const HomeScreen = () => {
     }
   };
   useEffect(() => {
-    startBackgroundLocation();
+    if (Platform.OS === 'ios'){
+      startBackgroundLocation();
+    }    
     fetchOrders();
   }, []);
   const alerts = [
